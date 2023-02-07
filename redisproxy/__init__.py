@@ -11,7 +11,7 @@ from .url_parser import addresses2clusternode, redisurl_parser
 
 
 class RedisProxy(Proxy):
-    """etcd的代理类."""
+    """redis的代理类."""
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster")
 
     def __init__(self, *, aio: bool = False, cluster: bool = False, url: Optional[str] = None, addresses: Optional[str] = None, **conn_params: Any) -> None:
