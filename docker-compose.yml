@@ -1,0 +1,12 @@
+version: "2.4"
+services:
+    # redis
+    redis:
+        image: hsz1273327/redis-allinone:redis7-1.2.1
+        mem_limit: 2g
+        ports:
+        - "6379:6379"
+        logging:
+            options:
+                max-size: "10m"
+                max-file: "3"
