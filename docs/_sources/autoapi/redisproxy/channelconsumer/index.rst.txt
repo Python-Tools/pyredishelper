@@ -1,0 +1,71 @@
+:py:mod:`redisproxy.channelconsumer`
+====================================
+
+.. py:module:: redisproxy.channelconsumer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   redisproxy.channelconsumer.ChannelConsumerProxy
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   redisproxy.channelconsumer._watch_async
+   redisproxy.channelconsumer._watch_sync
+
+
+
+.. py:class:: ChannelConsumerProxy(topics: str, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None, **conn_params: Any)
+
+   Bases: :py:obj:`redisproxy.proxy.RedisProxy`
+
+   redis的代理类.
+
+   .. py:attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', '_aio', '_cluster', 'watch', '_topics']
+
+      
+
+   .. py:method:: regist_methods(self, instance: Any) -> None
+
+
+   .. py:method:: _watch_async(self, channel: redis.asyncio.client.PubSub, timeout: Optional[int] = None) -> AsyncGenerator[redisproxy.models.ConsumerRecord, None]
+      :async:
+
+
+   .. py:method:: _watch_sync(self, channel: redis.client.PubSub, timeout: int = 3) -> Generator[redisproxy.models.ConsumerRecord, None, None]
+
+
+   .. py:method:: from_proxy(clz, proxy: redisproxy.proxy.RedisProxy, topics: str) -> ChannelConsumerProxy
+      :classmethod:
+
+      从RedisProxy实例创建代理.
+
+      :param proxy: RedisProxy的实例
+      :type proxy: RedisProxy
+      :param topics: 待监听的频道名列表,以","分隔
+      :type topics: str
+
+      :returns: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
+      :rtype: ChannelConsumerProxy
+
+
+
+.. py:function:: _watch_async(self: ChannelConsumerProxy) -> AsyncGenerator[AsyncIterable[redisproxy.models.ConsumerRecord], None]
+   :async:
+
+
+.. py:function:: _watch_sync(self: ChannelConsumerProxy) -> Generator[Iterable[redisproxy.models.ConsumerRecord], None, None]
+
+

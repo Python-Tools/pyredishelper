@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>redisproxy.streamconsumer &mdash; redisproxy 0.0.2 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> redisproxy
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">0.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html#id2">0.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">redisproxy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>redisproxy.streamconsumer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>redisproxy.streamconsumer 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.proxy</span> <span class="kn">import</span> <span class="n">RedisProxy</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">asynccontextmanager</span><span class="p">,</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">AsyncGenerator</span><span class="p">,</span> <span class="n">AsyncIterable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MethodType</span>
+<span class="kn">from</span> <span class="nn">redis</span> <span class="kn">import</span> <span class="n">Redis</span>
+<span class="kn">from</span> <span class="nn">redis.cluster</span> <span class="kn">import</span> <span class="n">RedisCluster</span>
+<span class="kn">from</span> <span class="nn">redis.asyncio</span> <span class="kn">import</span> <span class="n">Redis</span> <span class="k">as</span> <span class="n">AioRedis</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">ConsumerRecord</span><span class="p">,</span> <span class="n">AutoOffsetReset</span><span class="p">,</span> <span class="n">Acks</span>
+
+<span class="kn">from</span> <span class="nn">redis.commands.core</span> <span class="kn">import</span> <span class="n">AsyncDataAccessCommands</span><span class="p">,</span> <span class="n">DataAccessCommands</span>
+
+
+<div class="viewcode-block" id="StreamConsumerProxy"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy.StreamConsumerProxy">[文档]</a><span class="k">class</span> <span class="nc">StreamConsumerProxy</span><span class="p">(</span><span class="n">RedisProxy</span><span class="p">):</span>
+<div class="viewcode-block" id="StreamConsumerProxy.__slots__"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy.StreamConsumerProxy.__slots__">[文档]</a>    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;instance&#39;</span><span class="p">,</span> <span class="s2">&quot;_callbacks&quot;</span><span class="p">,</span> <span class="s2">&quot;_instance_check&quot;</span><span class="p">,</span> <span class="s2">&quot;_aio&quot;</span><span class="p">,</span> <span class="s2">&quot;_cluster&quot;</span><span class="p">,</span> <span class="s2">&quot;watch&quot;</span><span class="p">,</span> <span class="s2">&quot;_topics&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;_auto_offset_reset&quot;</span><span class="p">,</span> <span class="s2">&quot;_count&quot;</span><span class="p">,</span> <span class="s2">&quot;_blocktime&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;_client_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_group_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_ack&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topics</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">addresses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">aio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">auto_offset_reset</span><span class="p">:</span> <span class="n">AutoOffsetReset</span> <span class="o">=</span> <span class="n">AutoOffsetReset</span><span class="o">.</span><span class="n">latest</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">blocktime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                 <span class="n">client_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ack</span><span class="p">:</span> <span class="n">Acks</span> <span class="o">=</span> <span class="n">Acks</span><span class="o">.</span><span class="n">after</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">conn_params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Stream结构的消费者代理.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            topics (str): 监听的stream名,以&quot;,&quot;分隔</span>
+<span class="sd">            url (Optional[str], optional): 适用于非集群redis的请求url. Defaults to None.</span>
+<span class="sd">            addresses (Optional[str], optional): 适用于集群redis的以,分隔的地址序列. Defaults to None.</span>
+<span class="sd">            aio (Optional[bool], optional): 是否异步接口. Defaults to None.</span>
+<span class="sd">            auto_offset_reset (AutoOffsetReset, optional): 监听的开始位置. Defaults to AutoOffsetReset.latest.</span>
+<span class="sd">            count (Optional[int], optional): 一次监听获取的最大消息个数. Defaults to 1.</span>
+<span class="sd">            blocktime (Optional[int], optional): 一次监听的最大等待时间. Defaults to 1000.</span>
+<span class="sd">            client_id (Optional[str], optional): 客户端id,如果要用group模式监听数据则必填. Defaults to None.</span>
+<span class="sd">            group_id (Optional[str], optional): group id,如果要用group模式监听数据则必填. Defaults to None.</span>
+<span class="sd">            ack (Acks, optional): group模式下确认消息已读取的策略. Defaults to Acks.after.</span>
+<span class="sd">            conn_params (Any): 其他连接选项.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_auto_offset_reset</span> <span class="o">=</span> <span class="n">auto_offset_reset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="n">count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blocktime</span> <span class="o">=</span> <span class="n">blocktime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">=</span> <span class="n">client_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span> <span class="o">=</span> <span class="n">group_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="o">=</span> <span class="n">ack</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">auto_offset_reset</span> <span class="ow">is</span> <span class="n">AutoOffsetReset</span><span class="o">.</span><span class="n">earliest</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_topics</span> <span class="o">=</span> <span class="p">{</span><span class="n">topic</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span> <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">topics</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">client_id</span> <span class="ow">and</span> <span class="n">group_id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_topics</span> <span class="o">=</span> <span class="p">{</span><span class="n">topic</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span> <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">topics</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_topics</span> <span class="o">=</span> <span class="p">{</span><span class="n">topic</span><span class="p">:</span> <span class="s2">&quot;$&quot;</span> <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">topics</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attach_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regist_methods</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attach_instance_check</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">Redis</span><span class="p">,</span> <span class="n">RedisCluster</span><span class="p">,</span> <span class="n">AioRedis</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">conn_params</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">addresses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">aio</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_aio</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_aio</span> <span class="o">=</span> <span class="n">aio</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_from_addresses</span><span class="p">(</span><span class="n">addresses</span><span class="p">,</span> <span class="n">aio</span><span class="o">=</span><span class="n">_aio</span><span class="p">,</span> <span class="o">**</span><span class="n">conn_params</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StreamConsumerProxy.regist_methods"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy.StreamConsumerProxy.regist_methods">[文档]</a>    <span class="k">def</span> <span class="nf">regist_methods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aio</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">watch</span> <span class="o">=</span> <span class="n">MethodType</span><span class="p">(</span><span class="n">_watch_async</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">watch</span> <span class="o">=</span> <span class="n">MethodType</span><span class="p">(</span><span class="n">_watch_sync</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StreamConsumerProxy._watch_async"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy.StreamConsumerProxy._watch_async">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">_watch_async</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">ConsumerRecord</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">AsyncDataAccessCommands</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_offset_reset</span> <span class="ow">is</span> <span class="n">AutoOffsetReset</span><span class="o">.</span><span class="n">latest</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">streams_message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">xreadgroup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_blocktime</span><span class="p">,</span> <span class="n">noack</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">for</span> <span class="n">topic</span><span class="p">,</span> <span class="n">messages</span> <span class="ow">in</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="k">for</span> <span class="n">offset</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                            <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                            <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                            <span class="k">yield</span> <span class="n">record</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">streams_message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">xreadgroup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">noack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">for</span> <span class="n">topicb</span><span class="p">,</span> <span class="n">messages</span> <span class="ow">in</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="n">topic</span> <span class="o">=</span> <span class="n">topicb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topicb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">topicb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="ow">is</span> <span class="n">Acks</span><span class="o">.</span><span class="n">after_batch</span><span class="p">:</span>
+                            <span class="n">offsets</span> <span class="o">=</span> <span class="p">[]</span>
+                            <span class="k">for</span> <span class="n">offsetb</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                                <span class="n">offset</span> <span class="o">=</span> <span class="n">offsetb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offsetb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">offsetb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                                <span class="n">offsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+                                <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                                <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                                <span class="k">yield</span> <span class="n">record</span>
+                            <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="o">*</span><span class="n">offsets</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">offsetb</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                                <span class="n">offset</span> <span class="o">=</span> <span class="n">offsetb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offsetb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">offsetb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="ow">is</span> <span class="n">Acks</span><span class="o">.</span><span class="n">before</span><span class="p">:</span>
+                                    <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+                                <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                                <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                                <span class="k">yield</span> <span class="n">record</span>
+                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="ow">is</span> <span class="n">Acks</span><span class="o">.</span><span class="n">after</span><span class="p">:</span>
+                                    <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">streams_message</span> <span class="o">=</span> <span class="k">await</span> <span class="n">c</span><span class="o">.</span><span class="n">xread</span><span class="p">(</span><span class="n">streams</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_blocktime</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">streams_message</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">topicb</span><span class="p">,</span> <span class="n">messages</span> <span class="ow">in</span> <span class="n">streams_message</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">topic</span> <span class="o">=</span> <span class="n">topicb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topicb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">topicb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">latest_offset</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">for</span> <span class="n">offsetb</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                        <span class="n">offset</span> <span class="o">=</span> <span class="n">offsetb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offsetb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">offsetb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                        <span class="n">latest_offset</span> <span class="o">=</span> <span class="n">offset</span>
+                        <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                        <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                        <span class="k">yield</span> <span class="n">record</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                        <span class="n">topic</span><span class="p">:</span> <span class="n">latest_offset</span></div>
+                    <span class="p">})</span>
+
+<div class="viewcode-block" id="StreamConsumerProxy._watch_sync"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy.StreamConsumerProxy._watch_sync">[文档]</a>    <span class="k">def</span> <span class="nf">_watch_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">ConsumerRecord</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">DataAccessCommands</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_offset_reset</span> <span class="ow">is</span> <span class="n">AutoOffsetReset</span><span class="o">.</span><span class="n">latest</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">streams_message</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">xreadgroup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_blocktime</span><span class="p">,</span> <span class="n">noack</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">for</span> <span class="n">topic</span><span class="p">,</span> <span class="n">messages</span> <span class="ow">in</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="k">for</span> <span class="n">offset</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                            <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                            <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                            <span class="k">yield</span> <span class="n">record</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">streams_message</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">xreadgroup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="n">streams</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">noack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">for</span> <span class="n">topicb</span><span class="p">,</span> <span class="n">messages</span> <span class="ow">in</span> <span class="n">streams_message</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="n">topic</span> <span class="o">=</span> <span class="n">topicb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topicb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">topicb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="ow">is</span> <span class="n">Acks</span><span class="o">.</span><span class="n">after_batch</span><span class="p">:</span>
+                            <span class="n">offsets</span> <span class="o">=</span> <span class="p">[]</span>
+                            <span class="k">for</span> <span class="n">offsetb</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                                <span class="n">offset</span> <span class="o">=</span> <span class="n">offsetb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offsetb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">offsetb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                                <span class="n">offsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+                                <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                                <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                                <span class="k">yield</span> <span class="n">record</span>
+                            <span class="n">c</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="o">*</span><span class="n">offsets</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">offsetb</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                                <span class="n">offset</span> <span class="o">=</span> <span class="n">offsetb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offsetb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">offsetb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="ow">is</span> <span class="n">Acks</span><span class="o">.</span><span class="n">before</span><span class="p">:</span>
+                                    <span class="n">c</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+                                <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                                <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                                <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                                <span class="k">yield</span> <span class="n">record</span>
+                                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ack</span> <span class="ow">is</span> <span class="n">Acks</span><span class="o">.</span><span class="n">after</span><span class="p">:</span>
+                                    <span class="n">c</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_group_id</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">streams_message</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">xread</span><span class="p">(</span><span class="n">streams</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_blocktime</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">streams_message</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">topicb</span><span class="p">,</span> <span class="n">messages</span> <span class="ow">in</span> <span class="n">streams_message</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">messages</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">topic</span> <span class="o">=</span> <span class="n">topicb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">topicb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">topicb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">latest_offset</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">for</span> <span class="n">offsetb</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+                        <span class="n">offset</span> <span class="o">=</span> <span class="n">offsetb</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">offsetb</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">offsetb</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                        <span class="n">latest_offset</span> <span class="o">=</span> <span class="n">offset</span>
+                        <span class="n">ts</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span> <span class="n">m</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">m</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                        <span class="n">record</span> <span class="o">=</span> <span class="n">ConsumerRecord</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span><span class="p">)</span>
+                        <span class="k">yield</span> <span class="n">record</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_topics</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                        <span class="n">topic</span><span class="p">:</span> <span class="n">latest_offset</span></div>
+                    <span class="p">})</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="StreamConsumerProxy.from_proxy"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy.StreamConsumerProxy.from_proxy">[文档]</a>    <span class="k">def</span> <span class="nf">from_proxy</span><span class="p">(</span><span class="n">clz</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="n">RedisProxy</span><span class="p">,</span> <span class="n">topics</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                   <span class="n">auto_offset_reset</span><span class="p">:</span> <span class="n">AutoOffsetReset</span> <span class="o">=</span> <span class="n">AutoOffsetReset</span><span class="o">.</span><span class="n">latest</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">blocktime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+                   <span class="n">client_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">group_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ack</span><span class="p">:</span> <span class="n">Acks</span> <span class="o">=</span> <span class="n">Acks</span><span class="o">.</span><span class="n">after</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;StreamConsumerProxy&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;从RedisProxy实例创建代理.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            proxy (RedisProxy): RedisProxy的实例</span>
+<span class="sd">            topics (str): 待监听的频道名列表,以&quot;,&quot;分隔</span>
+<span class="sd">             auto_offset_reset (AutoOffsetReset, optional): 监听的开始位置. Defaults to AutoOffsetReset.latest.</span>
+<span class="sd">            count (Optional[int], optional): 一次监听获取的最大消息个数. Defaults to 1.</span>
+<span class="sd">            blocktime (Optional[int], optional): 一次监听的最大等待时间. Defaults to 1000.</span>
+<span class="sd">            client_id (Optional[str], optional): 客户端id,如果要用group模式监听数据则必填. Defaults to None.</span>
+<span class="sd">            group_id (Optional[str], optional): group id,如果要用group模式监听数据则必填. Defaults to None.</span>
+<span class="sd">            ack (Acks, optional): group模式下确认消息已读取的策略. Defaults to Acks.after.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            StreamConsumerProxy: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">clz</span><span class="p">(</span><span class="n">topics</span><span class="p">,</span> <span class="n">auto_offset_reset</span><span class="o">=</span><span class="n">auto_offset_reset</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">blocktime</span><span class="o">=</span><span class="n">blocktime</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="n">client_id</span><span class="p">,</span> <span class="n">group_id</span><span class="o">=</span><span class="n">group_id</span><span class="p">,</span> <span class="n">ack</span><span class="o">=</span><span class="n">ack</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">proxy</span><span class="o">.</span><span class="n">instance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_aio</span> <span class="o">=</span> <span class="n">proxy</span><span class="o">.</span><span class="n">aio</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_cluster</span> <span class="o">=</span> <span class="n">proxy</span><span class="o">.</span><span class="n">cluster</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">proxy</span><span class="o">.</span><span class="n">instance</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p</span></div></div>
+
+
+<span class="nd">@asynccontextmanager</span>
+<div class="viewcode-block" id="_watch_async"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy._watch_async">[文档]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">_watch_async</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">StreamConsumerProxy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="n">AsyncIterable</span><span class="p">[</span><span class="n">ConsumerRecord</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_watch_async</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="nd">@contextmanager</span>
+<div class="viewcode-block" id="_watch_sync"><a class="viewcode-back" href="../../autoapi/redisproxy/streamconsumer/index.html#redisproxy._watch_sync">[文档]</a><span class="k">def</span> <span class="nf">_watch_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">StreamConsumerProxy</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">ConsumerRecord</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">_watch_sync</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, mac.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+:py:mod:`redisproxy.queueproducer`
+==================================
+
+.. py:module:: redisproxy.queueproducer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   redisproxy.queueproducer.QueueProducerProxy
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   redisproxy.queueproducer._publish_async
+   redisproxy.queueproducer._publish_sync
+   redisproxy.queueproducer._mount_sync
+   redisproxy.queueproducer._mount_async
+
+
+
+.. py:class:: QueueProducerProxy(*, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None, l2r: bool = False, **conn_params: Any)
+
+   Bases: :py:obj:`redisproxy.proxy.RedisProxy`
+
+   redis的代理类.
+
+   .. py:attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', '_aio', '_cluster', 'publish', 'mount', '_l2r']
+
+      
+
+   .. py:method:: regist_methods(self, instance: Any) -> None
+
+
+   .. py:method:: l2r(self) -> bool
+      :property:
+
+      描述插入和弹出消息的方向.
+
+
+   .. py:method:: from_proxy(clz, proxy: redisproxy.proxy.RedisProxy, *, l2r: bool = False) -> QueueProducerProxy
+      :classmethod:
+
+      从RedisProxy实例创建代理.
+
+      :param proxy: RedisProxy的实例
+      :type proxy: RedisProxy
+      :param l2r: 是否从左侧插入数据右侧读取数据. Defaults to False.
+      :type l2r: bool, optional
+
+      :returns: 满足protocols.ProducerProtocol或者protocols.AioProducerProtocol协议的消费者代理对象
+      :rtype: QueueProducerProxy
+
+
+
+.. py:function:: _publish_async(self: QueueProducerProxy, topic: str, value: Union[str, bytes]) -> None
+   :async:
+
+
+.. py:function:: _publish_sync(self: QueueProducerProxy, topic: str, value: Union[str, bytes]) -> None
+
+
+.. py:function:: _mount_sync(self: QueueProducerProxy) -> Generator[QueueProducerProxy, None, None]
+
+
+.. py:function:: _mount_async(self: QueueProducerProxy) -> AsyncGenerator[QueueProducerProxy, None]
+   :async:
+
+

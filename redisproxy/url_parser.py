@@ -54,7 +54,6 @@ def redisurl_parser(url: str) -> RedisUrlInfo:
     scheme, url_tail = url.split("://")
     scheme = scheme.lower()
     scheme_eles = scheme.split("+")
-    print(scheme_eles)
     for ele in scheme_eles:
         if ele not in ("redis", "rediss", "async", "cluster"):
             raise RedisUrlError("scheme必须只含有redis,rediss,async,cluster")

@@ -1,6 +1,6 @@
 import asyncio
 from redis.commands.core import AsyncDataAccessCommands
-from redisproxy import RedisProxy
+from redisproxy.proxy import RedisProxy
 from typing import cast
 
 rediscli = RedisProxy()
