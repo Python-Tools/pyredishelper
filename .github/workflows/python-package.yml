@@ -31,7 +31,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with pep8
         run: |
-          pycodestyle --max-line-length=140 --ignore=E501 --first --statistics redisproxy
+          pycodestyle --max-line-length=140 --ignore=E501 --first --statistics redishelper
       - name: Type Hint Check
         run: |
-          mypy --ignore-missing-imports --show-column-numbers --follow-imports=silent --check-untyped-defs --disallow-untyped-defs --no-implicit-optional --warn-unused-ignores redisproxy
+          mypy --ignore-missing-imports --show-column-numbers --follow-imports=silent --check-untyped-defs --disallow-untyped-defs --no-implicit-optional --warn-unused-ignores redishelper
