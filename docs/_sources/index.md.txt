@@ -1,4 +1,4 @@
-# Welcome to redishelper's documentation!
+# Welcome to pyredishelper's documentation!
 
 ## 目录
 

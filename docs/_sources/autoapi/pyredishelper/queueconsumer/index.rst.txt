@@ -1,0 +1,79 @@
+:py:mod:`pyredishelper.queueconsumer`
+=====================================
+
+.. py:module:: pyredishelper.queueconsumer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyredishelper.queueconsumer.QueueConsumerHelper
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyredishelper.queueconsumer._watch_async
+   pyredishelper.queueconsumer._watch_sync
+
+
+
+.. py:class:: QueueConsumerHelper(topics: str, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None, l2r: bool = False, **conn_params: Any)
+
+   Bases: :py:obj:`pyredishelper.proxy.RedisProxy`
+
+   redis的代理类.
+
+   .. py:attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', '_aio', '_cluster', 'watch', '_l2r', '_topics']
+
+      
+
+   .. py:method:: regist_methods(self, instance: Any) -> None
+
+
+   .. py:method:: l2r(self) -> bool
+      :property:
+
+      描述插入和弹出消息的方向.
+
+
+   .. py:method:: _watch_async(self, timeout: int = 3) -> AsyncGenerator[pyredishelper.models.ConsumerRecord, None]
+      :async:
+
+
+   .. py:method:: _watch_sync(self, timeout: int = 3) -> Generator[pyredishelper.models.ConsumerRecord, None, None]
+
+
+   .. py:method:: from_proxy(clz, proxy: pyredishelper.proxy.RedisProxy, topics: str, *, l2r: bool = False) -> QueueConsumerHelper
+      :classmethod:
+
+      从RedisProxy实例创建代理.
+
+      :param proxy: RedisProxy的实例
+      :type proxy: RedisProxy
+      :param topics: 待监听的频道名列表,以","分隔
+      :type topics: str
+      :param l2r: 是否从左侧插入数据右侧读取数据. Defaults to False.
+      :type l2r: bool, optional
+
+      :returns: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
+      :rtype: QueueConsumerHelper
+
+
+
+.. py:function:: _watch_async(self: QueueConsumerHelper) -> AsyncGenerator[AsyncIterable[pyredishelper.models.ConsumerRecord], None]
+   :async:
+
+
+.. py:function:: _watch_sync(self: QueueConsumerHelper) -> Generator[Iterable[pyredishelper.models.ConsumerRecord], None, None]
+
+

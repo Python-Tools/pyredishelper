@@ -1,8 +1,8 @@
-from redishelper.proxy import RedisProxy
-from redishelper.protocols import AioProducerProtocol, AioStreamProducerProtocol
-from redishelper.queueproducer import QueueProducerHelper
-from redishelper.channelproducer import ChannelProducerHelper
-from redishelper.streamproducer import StreamProducerHelper
+from pyredishelper.proxy import RedisProxy
+from pyredishelper.protocols import AioProducerProtocol, AioStreamProducerProtocol
+from pyredishelper.queueproducer import QueueProducerHelper
+from pyredishelper.channelproducer import ChannelProducerHelper
+from pyredishelper.streamproducer import StreamProducerHelper
 from typing import cast
 import asyncio
 

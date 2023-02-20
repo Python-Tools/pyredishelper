@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyredishelper.protocols &mdash; pyredishelper 0.0.2 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyredishelper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">0.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html#id2">0.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyredishelper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>pyredishelper.protocols</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>pyredishelper.protocols 源代码</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;kafka代理的协议模块.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">ContextManager</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">AsyncContextManager</span><span class="p">,</span> <span class="n">AsyncIterable</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">ConsumerRecord</span>
+
+
+<div class="viewcode-block" id="ProducerProtocol"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.ProducerProtocol">[文档]</a><span class="k">class</span> <span class="nc">ProducerProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;同步生产者协议&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ProducerProtocol.publish"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.ProducerProtocol.publish">[文档]</a>    <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></div>
+        <span class="sd">&quot;&quot;&quot;同步发布接口.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            topic (str): 发布去的主题</span>
+<span class="sd">            value (Union[str, bytes, ]): 发布的值,</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ProducerProtocol.mount"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.ProducerProtocol.mount">[文档]</a>    <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="s2">&quot;ProducerProtocol&quot;</span><span class="p">]:</span></div></div>
+        <span class="sd">&quot;&quot;&quot;同步挂载接口.</span>
+
+<span class="sd">        提供一个管理回收连接资源的上下文管理器.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            p = cast(ProducerProtocol, kafkap)</span>
+<span class="sd">            with p.mount() as cli:</span>
+<span class="sd">                cli.publish(&quot;topic1&quot;, f&quot;send {i}&quot;)</span>
+<span class="sd">                print(&quot;send ok&quot;)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            ProducerProtocol: 返回一个同步发布协议对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="AioProducerProtocol"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioProducerProtocol">[文档]</a><span class="k">class</span> <span class="nc">AioProducerProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;异步生产者协议&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AioProducerProtocol.publish"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioProducerProtocol.publish">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></div>
+        <span class="sd">&quot;&quot;&quot;异步发布接口.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            topic (str): 发布去的主题</span>
+<span class="sd">            value (Union[str, bytes]): 发布的值</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AioProducerProtocol.mount"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioProducerProtocol.mount">[文档]</a>    <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncContextManager</span><span class="p">[</span><span class="s2">&quot;AioProducerProtocol&quot;</span><span class="p">]:</span></div></div>
+        <span class="sd">&quot;&quot;&quot;同步挂载接口.</span>
+
+<span class="sd">        提供一个管理回收连接资源的上下文管理器.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            p = cast(AioProducerProtocol, kafkap)</span>
+<span class="sd">            async with p.mount() as cli:</span>
+<span class="sd">                await cli.publish(&quot;topic1&quot;, f&quot;send {i}&quot;)</span>
+<span class="sd">                print(&quot;send ok&quot;)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            AioProducerProtocol: 返回一个异步发布协议对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="StreamProducerProtocol"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.StreamProducerProtocol">[文档]</a><span class="k">class</span> <span class="nc">StreamProducerProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;同步流对象的生产者协议&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StreamProducerProtocol.publish"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.StreamProducerProtocol.publish">[文档]</a>    <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></div>
+        <span class="sd">&quot;&quot;&quot;同步发布接口.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            topic (str): 发布去的主题</span>
+<span class="sd">            value (Dict[str, str]): 发布的值</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StreamProducerProtocol.mount"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.StreamProducerProtocol.mount">[文档]</a>    <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="s2">&quot;StreamProducerProtocol&quot;</span><span class="p">]:</span></div></div>
+        <span class="sd">&quot;&quot;&quot;同步挂载接口.</span>
+
+<span class="sd">        提供一个管理回收连接资源的上下文管理器.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            p = cast(ProducerProtocol, kafkap)</span>
+<span class="sd">            with p.mount() as cli:</span>
+<span class="sd">                cli.publish(&quot;topic1&quot;, {&quot;key&quot;: &quot;a key&quot;, &quot;value&quot;: f&quot;{i}y&quot;})</span>
+<span class="sd">                print(&quot;send ok&quot;)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            ProducerProtocol: 返回一个同步发布协议对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="AioStreamProducerProtocol"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioStreamProducerProtocol">[文档]</a><span class="k">class</span> <span class="nc">AioStreamProducerProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;异步流对象的生产者协议&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="AioStreamProducerProtocol.publish"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioStreamProducerProtocol.publish">[文档]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></div>
+        <span class="sd">&quot;&quot;&quot;异步发布接口.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            topic (str): 发布去的主题</span>
+<span class="sd">            value (Dict[str, str]): 发布的值</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AioStreamProducerProtocol.mount"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioStreamProducerProtocol.mount">[文档]</a>    <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncContextManager</span><span class="p">[</span><span class="s2">&quot;AioStreamProducerProtocol&quot;</span><span class="p">]:</span></div></div>
+        <span class="sd">&quot;&quot;&quot;同步挂载接口.</span>
+
+<span class="sd">        提供一个管理回收连接资源的上下文管理器.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            p = cast(AioProducerProtocol, kafkap)</span>
+<span class="sd">            async with p.mount() as cli:</span>
+<span class="sd">                await cli.publish(&quot;topic1&quot;, {&quot;key&quot;: &quot;a key&quot;, &quot;value&quot;: f&quot;{i}y&quot;})</span>
+<span class="sd">                print(&quot;send ok&quot;)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            AioProducerProtocol: 返回一个异步发布协议对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="ConsumerProtocol"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.ConsumerProtocol">[文档]</a><span class="k">class</span> <span class="nc">ConsumerProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;同步消费者的协议.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ConsumerProtocol.watch"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.ConsumerProtocol.watch">[文档]</a>    <span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextManager</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">ConsumerRecord</span><span class="p">]]:</span></div></div>
+        <span class="sd">&quot;&quot;&quot;同步监听接口.</span>
+
+<span class="sd">        调用后获得一个管理启动关闭连接并且返回一个可迭代对象的上下文管理器.监听获取消息可以直接使用`for`实现.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            c = cast(ConsumerProtocol, kafkac)</span>
+<span class="sd">            with c.watch() as g:</span>
+<span class="sd">                for record in g:</span>
+<span class="sd">                    print(record.value)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            Iterable[ConsumerRecord]: 返回一个消息的可迭代对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="AioConsumerProtocol"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioConsumerProtocol">[文档]</a><span class="k">class</span> <span class="nc">AioConsumerProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;异步消费者的协议.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AioConsumerProtocol.watch"><a class="viewcode-back" href="../../autoapi/pyredishelper/protocols/index.html#pyredishelper.AioConsumerProtocol.watch">[文档]</a>    <span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncContextManager</span><span class="p">[</span><span class="n">AsyncIterable</span><span class="p">[</span><span class="n">ConsumerRecord</span><span class="p">]]:</span></div></div>
+        <span class="sd">&quot;&quot;&quot;异步监听接口.</span>
+
+<span class="sd">        调用后获得一个管理启动关闭连接并且返回一个异步可迭代对象的上下文管理器.监听获取消息可以直接使用`async for`实现.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            c = cast(AioConsumerProtocol, kafkac)</span>
+<span class="sd">            async with c.watch() as g:</span>
+<span class="sd">                async for record in g:</span>
+<span class="sd">                    print(record.value)</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">            AsyncIterable[ConsumerRecord]: 返回一个消息的异步可迭代对象</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, mac.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

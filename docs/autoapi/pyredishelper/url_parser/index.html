@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyredishelper.url_parser &mdash; pyredishelper 0.0.2 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pyredishelper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">0.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html#id2">0.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyredishelper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyredishelper.url_parser</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/pyredishelper/url_parser/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyredishelper.url_parser">
+<span id="pyredishelper-url-parser"></span><h1><a class="reference internal" href="#module-pyredishelper.url_parser" title="pyredishelper.url_parser"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyredishelper.url_parser</span></code></a><a class="headerlink" href="#module-pyredishelper.url_parser" title="永久链接至标题">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="永久链接至标题">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="永久链接至标题">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyredishelper.url_parser.RedisUrlInfo" title="pyredishelper.url_parser.RedisUrlInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RedisUrlInfo</span></code></a></p></td>
+<td><p>A simple typed namespace. At runtime it is equivalent to a plain dict.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="永久链接至标题">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyredishelper.url_parser.addresses2clusternode" title="pyredishelper.url_parser.addresses2clusternode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addresses2clusternode</span></code></a>(addresses: str, *, aio: bool = False) → Union[List[redis.cluster.ClusterNode], List[redis.asyncio.cluster.ClusterNode]]</p></td>
+<td><p>将节点地址转换成节点对象.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyredishelper.url_parser.redisurl_parser" title="pyredishelper.url_parser.redisurl_parser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redisurl_parser</span></code></a>(url: str) → RedisUrlInfo</p></td>
+<td><p>校验和规整url.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="pyredishelper.url_parser.addresses2clusternode">
+<code class="sig-prename descclassname"><span class="pre">pyredishelper.url_parser.</span></code><code class="sig-name descname"><span class="pre">addresses2clusternode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aio</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">redis.cluster.ClusterNode</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">redis.asyncio.cluster.ClusterNode</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#addresses2clusternode"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.addresses2clusternode" title="永久链接至目标">¶</a></dt>
+<dd><p>将节点地址转换成节点对象.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addresses</strong> (<em>str</em>) – 以’,’分隔的host:port地址列表</p></li>
+<li><p><strong>aio</strong> (<em>bool</em>) – 是否为异步连接. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>同步或异步集群节点列表</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p>Union[List[ClusterNode], List[AioClusterNode]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="pyredishelper.url_parser.RedisUrlInfo">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pyredishelper.url_parser.</span></code><code class="sig-name descname"><span class="pre">RedisUrlInfo</span></code><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#RedisUrlInfo"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.RedisUrlInfo" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>A simple typed namespace. At runtime it is equivalent to a plain dict.</p>
+<p>TypedDict creates a dictionary type that expects all of its
+instances to have a certain set of keys, where each key is
+associated with a value of a consistent type. This expectation
+is not checked at runtime but is only enforced by type checkers.
+Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point2D</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="n">a</span><span class="p">:</span> <span class="n">Point2D</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;good&#39;</span><span class="p">}</span>  <span class="c1"># OK</span>
+<span class="n">b</span><span class="p">:</span> <span class="n">Point2D</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;bad&#39;</span><span class="p">}</span>           <span class="c1"># Fails type check</span>
+
+<span class="k">assert</span> <span class="n">Point2D</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The type info can be accessed via Point2D.__annotations__. TypedDict
+supports two additional equivalent forms:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Point2D</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span><span class="s1">&#39;Point2D&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">Point2D</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span><span class="s1">&#39;Point2D&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>By default, all keys must be present in a TypedDict. It is possible
+to override this by specifying totality.
+Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">point2D</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p>This means that a point2D TypedDict can have any of the keys omitted.A type
+checker is only expected to support a literal False or True as the value of
+the total argument. True is the default, and makes all items defined in the
+class body be required.</p>
+<p>The class syntax is only supported in Python 3.6+, while two other
+syntax forms work for Python 2.7 and 3.2+</p>
+<dl class="py attribute">
+<dt id="pyredishelper.url_parser.RedisUrlInfo.aio">
+<code class="sig-name descname"><span class="pre">aio</span></code><em class="property"> <span class="pre">:bool</span></em><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#RedisUrlInfo.aio"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.RedisUrlInfo.aio" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pyredishelper.url_parser.RedisUrlInfo.cluster">
+<code class="sig-name descname"><span class="pre">cluster</span></code><em class="property"> <span class="pre">:bool</span></em><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#RedisUrlInfo.cluster"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.RedisUrlInfo.cluster" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="pyredishelper.url_parser.RedisUrlInfo.redis_url">
+<code class="sig-name descname"><span class="pre">redis_url</span></code><em class="property"> <span class="pre">:str</span></em><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#RedisUrlInfo.redis_url"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.RedisUrlInfo.redis_url" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="pyredishelper.url_parser.RedisUrlError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">pyredishelper.url_parser.</span></code><code class="sig-name descname"><span class="pre">RedisUrlError</span></code><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#RedisUrlError"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.RedisUrlError" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Common base class for all non-exit exceptions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyredishelper.url_parser.redisurl_parser">
+<code class="sig-prename descclassname"><span class="pre">pyredishelper.url_parser.</span></code><code class="sig-name descname"><span class="pre">redisurl_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#pyredishelper.url_parser.RedisUrlInfo" title="pyredishelper.url_parser.RedisUrlInfo"><span class="pre">RedisUrlInfo</span></a><a class="reference internal" href="../../../_modules/pyredishelper/url_parser.html#redisurl_parser"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#pyredishelper.url_parser.redisurl_parser" title="永久链接至目标">¶</a></dt>
+<dd><p>校验和规整url.</p>
+<p>url的schema可以为`redis/rediss`,`async`,`cluster`三个对象的组合,但必须包含`redis`或`rediss`</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – 原始的url</p>
+</dd>
+<dt class="field-even">引发</dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyredishelper.url_parser.RedisUrlError" title="pyredishelper.url_parser.RedisUrlError"><strong>RedisUrlError</strong></a> – url的校验错误</p>
+</dd>
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p>url中获得的信息</p>
+</dd>
+<dt class="field-even">返回类型</dt>
+<dd class="field-even"><p><a class="reference internal" href="#pyredishelper.url_parser.RedisUrlInfo" title="pyredishelper.url_parser.RedisUrlInfo">RedisUrlInfo</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, mac.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

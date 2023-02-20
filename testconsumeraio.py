@@ -1,9 +1,9 @@
-from redishelper.proxy import RedisProxy
-from redishelper.models import AutoOffsetReset
-from redishelper.queueconsumer import QueueConsumerHelper
-from redishelper.channelconsumer import ChannelConsumerHelper
-from redishelper.streamconsumer import StreamConsumerHelper
-from redishelper.protocols import AioConsumerProtocol
+from pyredishelper.proxy import RedisProxy
+from pyredishelper.models import AutoOffsetReset
+from pyredishelper.queueconsumer import QueueConsumerHelper
+from pyredishelper.channelconsumer import ChannelConsumerHelper
+from pyredishelper.streamconsumer import StreamConsumerHelper
+from pyredishelper.protocols import AioConsumerProtocol
 from typing import cast, Union, Dict
 import asyncio
 

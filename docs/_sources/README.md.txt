@@ -1,4 +1,4 @@
-# redishelper
+# pyredishelper
 
 提供redis客户端的代理对象功能.本项目代理的对象是[redis-py](https://github.com/redis/redis-py)中的四种客户端
 
@@ -102,5 +102,5 @@ async with qc.watch() as records:
 ## 安装
 
 ```bash
-pip install redishelper
+pip install pyredishelper
 ```
