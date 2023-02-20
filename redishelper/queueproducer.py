@@ -54,7 +54,7 @@ class QueueProducerHelper(RedisProxy):
             l2r (bool, optional): 是否从左侧插入数据右侧读取数据. Defaults to False.
 
         Returns:
-            QueueProducerProxy: 满足protocols.ProducerProtocol或者protocols.AioProducerProtocol协议的消费者代理对象
+            QueueProducerHelper: 满足protocols.ProducerProtocol或者protocols.AioProducerProtocol协议的消费者代理对象
         """
         p = clz(l2r=l2r)
         if proxy.instance is not None:

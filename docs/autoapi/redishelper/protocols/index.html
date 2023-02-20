@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>redishelper.protocols &mdash; redishelper 0.0.2 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> redishelper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">0.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html#id2">0.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">redishelper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">redishelper.protocols</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/redishelper/protocols/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-redishelper.protocols">
+<span id="redishelper-protocols"></span><h1><a class="reference internal" href="#module-redishelper.protocols" title="redishelper.protocols"><code class="xref py py-mod docutils literal notranslate"><span class="pre">redishelper.protocols</span></code></a><a class="headerlink" href="#module-redishelper.protocols" title="永久链接至标题">¶</a></h1>
+<p>kafka代理的协议模块.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="永久链接至标题">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="永久链接至标题">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#redishelper.protocols.ProducerProtocol" title="redishelper.protocols.ProducerProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProducerProtocol</span></code></a></p></td>
+<td><p>同步生产者协议</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#redishelper.protocols.AioProducerProtocol" title="redishelper.protocols.AioProducerProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AioProducerProtocol</span></code></a></p></td>
+<td><p>异步生产者协议</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#redishelper.protocols.StreamProducerProtocol" title="redishelper.protocols.StreamProducerProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamProducerProtocol</span></code></a></p></td>
+<td><p>同步流对象的生产者协议</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#redishelper.protocols.AioStreamProducerProtocol" title="redishelper.protocols.AioStreamProducerProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AioStreamProducerProtocol</span></code></a></p></td>
+<td><p>异步流对象的生产者协议</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#redishelper.protocols.ConsumerProtocol" title="redishelper.protocols.ConsumerProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConsumerProtocol</span></code></a></p></td>
+<td><p>同步消费者的协议.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#redishelper.protocols.AioConsumerProtocol" title="redishelper.protocols.AioConsumerProtocol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AioConsumerProtocol</span></code></a></p></td>
+<td><p>异步消费者的协议.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="redishelper.protocols.ProducerProtocol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.protocols.</span></code><code class="sig-name descname"><span class="pre">ProducerProtocol</span></code><a class="reference internal" href="../../../_modules/redishelper/protocols.html#ProducerProtocol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.ProducerProtocol" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>同步生产者协议</p>
+<dl class="py method">
+<dt id="redishelper.protocols.ProducerProtocol.publish">
+<code class="sig-name descname"><span class="pre">publish</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#ProducerProtocol.publish"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.ProducerProtocol.publish" title="永久链接至目标">¶</a></dt>
+<dd><p>同步发布接口.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>) – 发布去的主题</p></li>
+<li><p><strong>value</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>bytes</em><em>, </em><em>]</em>) – 发布的值,</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="redishelper.protocols.ProducerProtocol.mount">
+<code class="sig-name descname"><span class="pre">mount</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">ContextManager</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#redishelper.protocols.ProducerProtocol" title="redishelper.protocols.ProducerProtocol"><span class="pre">ProducerProtocol</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#ProducerProtocol.mount"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.ProducerProtocol.mount" title="永久链接至目标">¶</a></dt>
+<dd><p>同步挂载接口.</p>
+<p>提供一个管理回收连接资源的上下文管理器.</p>
+<p class="rubric">示例</p>
+<p>p = cast(ProducerProtocol, kafkap)
+with p.mount() as cli:</p>
+<blockquote>
+<div><p>cli.publish(“topic1”, f”send {i}”)
+print(“send ok”)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">生成器</dt>
+<dd class="field-odd"><p><em>ProducerProtocol</em> – 返回一个同步发布协议对象</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="redishelper.protocols.AioProducerProtocol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.protocols.</span></code><code class="sig-name descname"><span class="pre">AioProducerProtocol</span></code><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioProducerProtocol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioProducerProtocol" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>异步生产者协议</p>
+<dl class="py method">
+<dt id="redishelper.protocols.AioProducerProtocol.publish">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">publish</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioProducerProtocol.publish"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioProducerProtocol.publish" title="永久链接至目标">¶</a></dt>
+<dd><p>异步发布接口.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>) – 发布去的主题</p></li>
+<li><p><strong>value</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>bytes</em><em>]</em>) – 发布的值</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="redishelper.protocols.AioProducerProtocol.mount">
+<code class="sig-name descname"><span class="pre">mount</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">AsyncContextManager</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#redishelper.protocols.AioProducerProtocol" title="redishelper.protocols.AioProducerProtocol"><span class="pre">AioProducerProtocol</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioProducerProtocol.mount"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioProducerProtocol.mount" title="永久链接至目标">¶</a></dt>
+<dd><p>同步挂载接口.</p>
+<p>提供一个管理回收连接资源的上下文管理器.</p>
+<p class="rubric">示例</p>
+<p>p = cast(AioProducerProtocol, kafkap)
+async with p.mount() as cli:</p>
+<blockquote>
+<div><p>await cli.publish(“topic1”, f”send {i}”)
+print(“send ok”)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">生成器</dt>
+<dd class="field-odd"><p><em>AioProducerProtocol</em> – 返回一个异步发布协议对象</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="redishelper.protocols.StreamProducerProtocol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.protocols.</span></code><code class="sig-name descname"><span class="pre">StreamProducerProtocol</span></code><a class="reference internal" href="../../../_modules/redishelper/protocols.html#StreamProducerProtocol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.StreamProducerProtocol" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>同步流对象的生产者协议</p>
+<dl class="py method">
+<dt id="redishelper.protocols.StreamProducerProtocol.publish">
+<code class="sig-name descname"><span class="pre">publish</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#StreamProducerProtocol.publish"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.StreamProducerProtocol.publish" title="永久链接至目标">¶</a></dt>
+<dd><p>同步发布接口.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>) – 发布去的主题</p></li>
+<li><p><strong>value</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – 发布的值</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="redishelper.protocols.StreamProducerProtocol.mount">
+<code class="sig-name descname"><span class="pre">mount</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">ContextManager</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#redishelper.protocols.StreamProducerProtocol" title="redishelper.protocols.StreamProducerProtocol"><span class="pre">StreamProducerProtocol</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#StreamProducerProtocol.mount"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.StreamProducerProtocol.mount" title="永久链接至目标">¶</a></dt>
+<dd><p>同步挂载接口.</p>
+<p>提供一个管理回收连接资源的上下文管理器.</p>
+<p class="rubric">示例</p>
+<p>p = cast(ProducerProtocol, kafkap)
+with p.mount() as cli:</p>
+<blockquote>
+<div><p>cli.publish(“topic1”, {“key”: “a key”, “value”: f”{i}y”})
+print(“send ok”)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">生成器</dt>
+<dd class="field-odd"><p><em>ProducerProtocol</em> – 返回一个同步发布协议对象</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="redishelper.protocols.AioStreamProducerProtocol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.protocols.</span></code><code class="sig-name descname"><span class="pre">AioStreamProducerProtocol</span></code><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioStreamProducerProtocol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioStreamProducerProtocol" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>异步流对象的生产者协议</p>
+<dl class="py method">
+<dt id="redishelper.protocols.AioStreamProducerProtocol.publish">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">publish</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioStreamProducerProtocol.publish"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioStreamProducerProtocol.publish" title="永久链接至目标">¶</a></dt>
+<dd><p>异步发布接口.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>topic</strong> (<em>str</em>) – 发布去的主题</p></li>
+<li><p><strong>value</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – 发布的值</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="redishelper.protocols.AioStreamProducerProtocol.mount">
+<code class="sig-name descname"><span class="pre">mount</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">AsyncContextManager</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#redishelper.protocols.AioStreamProducerProtocol" title="redishelper.protocols.AioStreamProducerProtocol"><span class="pre">AioStreamProducerProtocol</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioStreamProducerProtocol.mount"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioStreamProducerProtocol.mount" title="永久链接至目标">¶</a></dt>
+<dd><p>同步挂载接口.</p>
+<p>提供一个管理回收连接资源的上下文管理器.</p>
+<p class="rubric">示例</p>
+<p>p = cast(AioProducerProtocol, kafkap)
+async with p.mount() as cli:</p>
+<blockquote>
+<div><p>await cli.publish(“topic1”, {“key”: “a key”, “value”: f”{i}y”})
+print(“send ok”)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">生成器</dt>
+<dd class="field-odd"><p><em>AioProducerProtocol</em> – 返回一个异步发布协议对象</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="redishelper.protocols.ConsumerProtocol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.protocols.</span></code><code class="sig-name descname"><span class="pre">ConsumerProtocol</span></code><a class="reference internal" href="../../../_modules/redishelper/protocols.html#ConsumerProtocol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.ConsumerProtocol" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>同步消费者的协议.</p>
+<dl class="py method">
+<dt id="redishelper.protocols.ConsumerProtocol.watch">
+<code class="sig-name descname"><span class="pre">watch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">ContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../models/index.html#redishelper.models.ConsumerRecord" title="redishelper.models.ConsumerRecord"><span class="pre">redishelper.models.ConsumerRecord</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#ConsumerProtocol.watch"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.ConsumerProtocol.watch" title="永久链接至目标">¶</a></dt>
+<dd><p>同步监听接口.</p>
+<p>调用后获得一个管理启动关闭连接并且返回一个可迭代对象的上下文管理器.监听获取消息可以直接使用`for`实现.</p>
+<p class="rubric">示例</p>
+<p>c = cast(ConsumerProtocol, kafkac)
+with c.watch() as g:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>for record in g:</dt><dd><p>print(record.value)</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">生成器</dt>
+<dd class="field-odd"><p><em>Iterable[ConsumerRecord]</em> – 返回一个消息的可迭代对象</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="redishelper.protocols.AioConsumerProtocol">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.protocols.</span></code><code class="sig-name descname"><span class="pre">AioConsumerProtocol</span></code><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioConsumerProtocol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioConsumerProtocol" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<p>异步消费者的协议.</p>
+<dl class="py method">
+<dt id="redishelper.protocols.AioConsumerProtocol.watch">
+<code class="sig-name descname"><span class="pre">watch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">AsyncContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">AsyncIterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../models/index.html#redishelper.models.ConsumerRecord" title="redishelper.models.ConsumerRecord"><span class="pre">redishelper.models.ConsumerRecord</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/protocols.html#AioConsumerProtocol.watch"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.protocols.AioConsumerProtocol.watch" title="永久链接至目标">¶</a></dt>
+<dd><p>异步监听接口.</p>
+<p>调用后获得一个管理启动关闭连接并且返回一个异步可迭代对象的上下文管理器.监听获取消息可以直接使用`async for`实现.</p>
+<p class="rubric">示例</p>
+<p>c = cast(AioConsumerProtocol, kafkac)
+async with c.watch() as g:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>async for record in g:</dt><dd><p>print(record.value)</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">生成器</dt>
+<dd class="field-odd"><p><em>AsyncIterable[ConsumerRecord]</em> – 返回一个消息的异步可迭代对象</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, mac.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

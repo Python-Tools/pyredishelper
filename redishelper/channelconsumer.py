@@ -78,7 +78,7 @@ class ChannelConsumerHelper(RedisProxy):
             topics (str): 待监听的频道名列表,以","分隔
 
         Returns:
-            ChannelConsumerProxy: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
+            ChannelConsumerHelper: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
         """
         p = clz(topics)
         if proxy.instance is not None:

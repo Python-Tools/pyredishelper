@@ -1,0 +1,62 @@
+:py:mod:`redishelper.channelproducer`
+=====================================
+
+.. py:module:: redishelper.channelproducer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   redishelper.channelproducer.ChannelProducerHelper
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   redishelper.channelproducer._mount_sync
+   redishelper.channelproducer._mount_async
+
+
+
+.. py:class:: ChannelProducerHelper(*, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None, **conn_params: Any)
+
+   Bases: :py:obj:`redishelper.proxy.RedisProxy`
+
+   redis的代理类.
+
+   .. py:attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', '_aio', '_cluster', 'mount']
+
+      
+
+   .. py:method:: regist_methods(self, instance: Any) -> None
+
+
+   .. py:method:: from_proxy(clz, proxy: redishelper.proxy.RedisProxy) -> ChannelProducerHelper
+      :classmethod:
+
+      从RedisProxy实例创建代理.
+
+      :param proxy: RedisProxy的实例
+      :type proxy: RedisProxy
+
+      :returns: 满足protocols.ProducerProtocol或者protocols.AioProducerProtocol协议的消费者代理对象
+      :rtype: ChannelProducerHelper
+
+
+
+.. py:function:: _mount_sync(self: ChannelProducerHelper) -> Generator[ChannelProducerHelper, None, None]
+
+
+.. py:function:: _mount_async(self: ChannelProducerHelper) -> AsyncGenerator[ChannelProducerHelper, None]
+   :async:
+
+

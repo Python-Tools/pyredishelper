@@ -217,7 +217,7 @@ class StreamConsumerHelper(RedisProxy):
             ack (Acks, optional): group模式下确认消息已读取的策略. Defaults to Acks.after.
 
         Returns:
-            StreamConsumerProxy: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
+            StreamConsumerHelper: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
         """
         p = clz(topics, auto_offset_reset=auto_offset_reset, count=count, blocktime=blocktime, client_id=client_id, group_id=group_id, ack=ack)
         if proxy.instance is not None:

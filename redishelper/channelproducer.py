@@ -45,7 +45,7 @@ class ChannelProducerHelper(RedisProxy):
             proxy (RedisProxy): RedisProxy的实例
 
         Returns:
-            ChannelProducerProxy:  满足protocols.ProducerProtocol或者protocols.AioProducerProtocol协议的消费者代理对象
+            ChannelProducerHelper:  满足protocols.ProducerProtocol或者protocols.AioProducerProtocol协议的消费者代理对象
         """
         p = clz()
         if proxy.instance is not None:

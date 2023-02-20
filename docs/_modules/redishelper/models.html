@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>redishelper.models &mdash; redishelper 0.0.2 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> redishelper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">0.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html#id2">0.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">redishelper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">模块代码</a> &raquo;</li>
+        
+      <li>redishelper.models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>redishelper.models 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span>
+
+
+<div class="viewcode-block" id="AutoOffsetReset"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.AutoOffsetReset">[文档]</a><span class="k">class</span> <span class="nc">AutoOffsetReset</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<div class="viewcode-block" id="AutoOffsetReset.earliest"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.AutoOffsetReset.earliest">[文档]</a>    <span class="n">earliest</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+<div class="viewcode-block" id="AutoOffsetReset.latest"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.AutoOffsetReset.latest">[文档]</a>    <span class="n">latest</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Acks"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.Acks">[文档]</a><span class="k">class</span> <span class="nc">Acks</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ack的策略&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Acks.before"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.Acks.before">[文档]</a>    <span class="n">before</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># 单条消息处理前确认</span></div>
+<div class="viewcode-block" id="Acks.after"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.Acks.after">[文档]</a>    <span class="n">after</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># 单条消息处理后确认</span></div>
+<div class="viewcode-block" id="Acks.after_batch"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.Acks.after_batch">[文档]</a>    <span class="n">after_batch</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>  <span class="c1"># 一批消息处理后确认</span></div></div>
+
+
+<span class="nd">@dataclass</span>
+<div class="viewcode-block" id="ConsumerRecord"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.ConsumerRecord">[文档]</a><span class="k">class</span> <span class="nc">ConsumerRecord</span><span class="p">:</span>
+<div class="viewcode-block" id="ConsumerRecord.topic"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.ConsumerRecord.topic">[文档]</a>    <span class="n">topic</span><span class="p">:</span> <span class="nb">str</span></div>
+    <span class="s2">&quot;The topic this record is received from&quot;</span>
+
+<div class="viewcode-block" id="ConsumerRecord.value"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.ConsumerRecord.value">[文档]</a>    <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span></div>
+    <span class="s2">&quot;The value&quot;</span>
+
+<div class="viewcode-block" id="ConsumerRecord.offset"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.ConsumerRecord.offset">[文档]</a>    <span class="n">offset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="s2">&quot;The position id of this record in redis stream.&quot;</span>
+
+<div class="viewcode-block" id="ConsumerRecord.timestamp"><a class="viewcode-back" href="../../autoapi/redishelper/models/index.html#redishelper.ConsumerRecord.timestamp">[文档]</a>    <span class="n">timestamp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="s2">&quot;The milliseconds timestamp of this record&quot;</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, mac.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

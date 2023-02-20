@@ -1,4 +1,4 @@
-# redisproxy
+# redishelper
 
 提供redis客户端的代理对象功能.本项目代理的对象是[redis-py](https://github.com/redis/redis-py)中的四种客户端
 
@@ -10,7 +10,7 @@
 ## 特性
 
 + 提供了统一的代理对象`RedisProxy`用于代理`redis.Redis`,`redis.cluster.RedisCluster`,`redis.asyncio.Redis`或`redis.asyncio.cluster.RedisCluster`
-+ 针对生产者消费者模式提供了专用代理对象`ChannelConsumerProxy`,`ChannelProducerProxy`,`QueueConsumerProxy`,`QueueProducerProxy`,`StreamConsumerProxy`,`StreamProducerProxy`
++ 针对生产者消费者模式提供了专用代理对象`ChannelConsumerHelper`,`ChannelProducerHelper`,`QueueConsumerHelper`,`QueueProducerHelper`,`StreamConsumerPHelper`,`StreamProducerHelper`
 + 生产者消费者提供了进一步的封装,可以通过上下文管理连接
 
 ## 使用
@@ -64,7 +64,7 @@ await r.get(x)
 > 同步生产者
 
 ```python
-qp = cast(StreamProducerProtocol, StreamProducerProxy.from_proxy(rediscli, maxlen=20))
+qp = cast(StreamProducerProtocol, StreamProducerHelper.from_proxy(rediscli, maxlen=20))
 with qp.mount() as producer:
     for i in range(10):
         producer.publish(topic,value)
@@ -73,7 +73,7 @@ with qp.mount() as producer:
 > 异步生产者
 
 ```python
-qp = cast(AioStreamProducerProtocol, StreamProducerProxy.from_proxy(rediscli, maxlen=20))
+qp = cast(AioStreamProducerProtocol, StreamProducerHelper.from_proxy(rediscli, maxlen=20))
 async with qp.mount() as producer:
     for i in range(10):
         await producer.publish(topic,value)
@@ -82,7 +82,7 @@ async with qp.mount() as producer:
 > 同步消费者
 
 ```python
-qc = cast(ConsumerProtocol, QueueConsumerProxy.from_proxy(rediscli, topics))
+qc = cast(ConsumerProtocol, QueueConsumerHelper.from_proxy(rediscli, topics))
 
 with qc.watch() as records:
     for record in records:
@@ -92,7 +92,7 @@ with qc.watch() as records:
 > 异步消费者
 
 ```python
-qc = cast(AioConsumerProtocol, QueueConsumerProxy.from_proxy(rediscli, topics))
+qc = cast(AioConsumerProtocol, QueueConsumerHelper.from_proxy(rediscli, topics))
 
 async with qc.watch() as records:
     async for record in records:
@@ -102,5 +102,5 @@ async with qc.watch() as records:
 ## 安装
 
 ```bash
-pip install redisproxy
+pip install redishelper
 ```

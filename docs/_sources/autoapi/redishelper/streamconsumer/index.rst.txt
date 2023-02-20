@@ -1,0 +1,80 @@
+:py:mod:`redishelper.streamconsumer`
+====================================
+
+.. py:module:: redishelper.streamconsumer
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   redishelper.streamconsumer.StreamConsumerHelper
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   redishelper.streamconsumer._watch_async
+   redishelper.streamconsumer._watch_sync
+
+
+
+.. py:class:: StreamConsumerHelper(topics: str, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None, auto_offset_reset: redishelper.models.AutoOffsetReset = AutoOffsetReset.latest, count: Optional[int] = 1, blocktime: Optional[int] = 1000, client_id: Optional[str] = None, group_id: Optional[str] = None, ack: redishelper.models.Acks = Acks.after, **conn_params: Any)
+
+   Bases: :py:obj:`redishelper.proxy.RedisProxy`
+
+   .. py:attribute:: __slots__
+      :annotation: = ['instance', '_callbacks', '_instance_check', '_aio', '_cluster', 'watch', '_topics',...
+
+      
+
+   .. py:method:: regist_methods(self, instance: Any) -> None
+
+
+   .. py:method:: _watch_async(self) -> AsyncGenerator[redishelper.models.ConsumerRecord, None]
+      :async:
+
+
+   .. py:method:: _watch_sync(self) -> Generator[redishelper.models.ConsumerRecord, None, None]
+
+
+   .. py:method:: from_proxy(clz, proxy: redishelper.proxy.RedisProxy, topics: str, *, auto_offset_reset: redishelper.models.AutoOffsetReset = AutoOffsetReset.latest, count: Optional[int] = 20, blocktime: Optional[int] = 1000, client_id: Optional[str] = None, group_id: Optional[str] = None, ack: redishelper.models.Acks = Acks.after) -> StreamConsumerHelper
+      :classmethod:
+
+      从RedisProxy实例创建代理.
+
+      :param proxy: RedisProxy的实例
+      :type proxy: RedisProxy
+      :param topics: 待监听的频道名列表,以","分隔
+                     auto_offset_reset (AutoOffsetReset, optional): 监听的开始位置. Defaults to AutoOffsetReset.latest.
+      :type topics: str
+      :param count: 一次监听获取的最大消息个数. Defaults to 1.
+      :type count: Optional[int], optional
+      :param blocktime: 一次监听的最大等待时间. Defaults to 1000.
+      :type blocktime: Optional[int], optional
+      :param client_id: 客户端id,如果要用group模式监听数据则必填. Defaults to None.
+      :type client_id: Optional[str], optional
+      :param group_id: group id,如果要用group模式监听数据则必填. Defaults to None.
+      :type group_id: Optional[str], optional
+      :param ack: group模式下确认消息已读取的策略. Defaults to Acks.after.
+      :type ack: Acks, optional
+
+      :returns: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
+      :rtype: StreamConsumerHelper
+
+
+
+.. py:function:: _watch_async(self: StreamConsumerHelper) -> AsyncGenerator[AsyncIterable[redishelper.models.ConsumerRecord], None]
+   :async:
+
+
+.. py:function:: _watch_sync(self: StreamConsumerHelper) -> Generator[Iterable[redishelper.models.ConsumerRecord], None, None]
+
+

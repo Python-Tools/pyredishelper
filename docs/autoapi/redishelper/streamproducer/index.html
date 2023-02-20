@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>redishelper.streamproducer &mdash; redishelper 0.0.2 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> redishelper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">0.0.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html#id2">0.0.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">redishelper</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">redishelper.streamproducer</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/redishelper/streamproducer/index.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-redishelper.streamproducer">
+<span id="redishelper-streamproducer"></span><h1><a class="reference internal" href="#module-redishelper.streamproducer" title="redishelper.streamproducer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">redishelper.streamproducer</span></code></a><a class="headerlink" href="#module-redishelper.streamproducer" title="永久链接至标题">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="永久链接至标题">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="永久链接至标题">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StreamProducerHelper</span></code></a></p></td>
+<td><p>redis的代理类.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="永久链接至标题">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#redishelper.streamproducer._publish_async" title="redishelper.streamproducer._publish_async"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_publish_async</span></code></a>(self: StreamProducerHelper, topic: str, value: Dict[str, str]) → None</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#redishelper.streamproducer._publish_sync" title="redishelper.streamproducer._publish_sync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_publish_sync</span></code></a>(self: StreamProducerHelper, topic: str, value: Dict[str, str]) → None</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#redishelper.streamproducer._mount_sync" title="redishelper.streamproducer._mount_sync"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_mount_sync</span></code></a>(self: StreamProducerHelper) → Generator[StreamProducerHelper, None, None]</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#redishelper.streamproducer._mount_async" title="redishelper.streamproducer._mount_async"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_mount_async</span></code></a>(self: StreamProducerHelper) → AsyncGenerator[StreamProducerHelper, None]</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="redishelper.streamproducer.StreamProducerHelper">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.streamproducer.</span></code><code class="sig-name descname"><span class="pre">StreamProducerHelper</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aio</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxlen</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approximate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nomkstream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">conn_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#StreamProducerHelper"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer.StreamProducerHelper" title="永久链接至目标">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../proxy/index.html#redishelper.proxy.RedisProxy" title="redishelper.proxy.RedisProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redishelper.proxy.RedisProxy</span></code></a></p>
+<p>redis的代理类.</p>
+<dl class="py attribute">
+<dt id="redishelper.streamproducer.StreamProducerHelper.__slots__">
+<code class="sig-name descname"><span class="pre">__slots__</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['instance',</span> <span class="pre">'_callbacks',</span> <span class="pre">'_instance_check',</span> <span class="pre">'_aio',</span> <span class="pre">'_cluster',</span> <span class="pre">'mount',</span> <span class="pre">'publish',</span> <span class="pre">'_maxlen',...</span></em><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#StreamProducerHelper.__slots__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer.StreamProducerHelper.__slots__" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="redishelper.streamproducer.StreamProducerHelper.regist_methods">
+<code class="sig-name descname"><span class="pre">regist_methods</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#StreamProducerHelper.regist_methods"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer.StreamProducerHelper.regist_methods" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="redishelper.streamproducer.StreamProducerHelper.from_proxy">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_proxy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../proxy/index.html#redishelper.proxy.RedisProxy" title="redishelper.proxy.RedisProxy"><span class="pre">redishelper.proxy.RedisProxy</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxlen</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">approximate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nomkstream</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#StreamProducerHelper.from_proxy"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer.StreamProducerHelper.from_proxy" title="永久链接至目标">¶</a></dt>
+<dd><p>从RedisProxy实例创建代理.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proxy</strong> (<a class="reference internal" href="../index.html#redishelper.RedisProxy" title="redishelper.RedisProxy"><em>RedisProxy</em></a>) – RedisProxy的实例</p></li>
+<li><p><strong>maxlen</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – 流的最大长度 Defaults to None.</p></li>
+<li><p><strong>approximate</strong> (<em>bool</em><em>, </em><em>optional</em>) – 是否有余量的执行最大长度. Defaults to True.</p></li>
+<li><p><strong>nomkstream</strong> (<em>bool</em><em>, </em><em>optional</em>) – 流不存在时是否自动创建. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p>满足protocols.StreamProducerProtocol或者protocols.AioStreamProducerProtocol协议的消费者代理对象</p>
+</dd>
+<dt class="field-odd">返回类型</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper">StreamProducerHelper</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="redishelper.streamproducer._publish_async">
+<em class="property"><span class="pre">async</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.streamproducer.</span></code><code class="sig-name descname"><span class="pre">_publish_async</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#_publish_async"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer._publish_async" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="redishelper.streamproducer._publish_sync">
+<code class="sig-prename descclassname"><span class="pre">redishelper.streamproducer.</span></code><code class="sig-name descname"><span class="pre">_publish_sync</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#_publish_sync"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer._publish_sync" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="redishelper.streamproducer._mount_sync">
+<code class="sig-prename descclassname"><span class="pre">redishelper.streamproducer.</span></code><code class="sig-name descname"><span class="pre">_mount_sync</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#_mount_sync"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer._mount_sync" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="redishelper.streamproducer._mount_async">
+<em class="property"><span class="pre">async</span> </em><code class="sig-prename descclassname"><span class="pre">redishelper.streamproducer.</span></code><code class="sig-name descname"><span class="pre">_mount_async</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">AsyncGenerator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#redishelper.streamproducer.StreamProducerHelper" title="redishelper.streamproducer.StreamProducerHelper"><span class="pre">StreamProducerHelper</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/redishelper/streamproducer.html#_mount_async"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#redishelper.streamproducer._mount_async" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2023, mac.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

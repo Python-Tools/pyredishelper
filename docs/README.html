@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>redisproxy &mdash; redisproxy 0.0.2 文档</title>
+  <title>redishelper &mdash; redishelper 0.0.2 文档</title>
   
 
   
@@ -41,7 +41,7 @@
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
     <link rel="next" title="0.0.2" href="CHANGELOG.html" />
-    <link rel="prev" title="Welcome to redisproxy’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to redishelper’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -55,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> redisproxy
+            <a href="index.html" class="icon icon-home"> redishelper
           
 
           
@@ -94,11 +94,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">介绍</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">特性</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">使用</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">RedisProxy的使用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">生产者消费者模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redisproxy">RedisProxy的使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">生产者消费者模式</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">安装</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">0.0.2</a></li>
@@ -119,7 +119,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">redisproxy</a>
+          <a href="index.html">redishelper</a>
         
       </nav>
 
@@ -152,7 +152,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>redisproxy</li>
+      <li>redishelper</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -171,8 +171,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="redisproxy">
-<h1>redisproxy<a class="headerlink" href="#redisproxy" title="永久链接至标题">¶</a></h1>
+  <div class="section" id="redishelper">
+<h1>redishelper<a class="headerlink" href="#redishelper" title="永久链接至标题">¶</a></h1>
 <p>提供redis客户端的代理对象功能.本项目代理的对象是<a class="reference external" href="https://github.com/redis/redis-py">redis-py</a>中的四种客户端</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">redis.Redis</span></code></p></li>
@@ -184,14 +184,14 @@
 <h2>特性<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
 <li><p>提供了统一的代理对象<code class="docutils literal notranslate"><span class="pre">RedisProxy</span></code>用于代理<code class="docutils literal notranslate"><span class="pre">redis.Redis</span></code>,<code class="docutils literal notranslate"><span class="pre">redis.cluster.RedisCluster</span></code>,<code class="docutils literal notranslate"><span class="pre">redis.asyncio.Redis</span></code>或<code class="docutils literal notranslate"><span class="pre">redis.asyncio.cluster.RedisCluster</span></code></p></li>
-<li><p>针对生产者消费者模式提供了专用代理对象<code class="docutils literal notranslate"><span class="pre">ChannelConsumerProxy</span></code>,<code class="docutils literal notranslate"><span class="pre">ChannelProducerProxy</span></code>,<code class="docutils literal notranslate"><span class="pre">QueueConsumerProxy</span></code>,<code class="docutils literal notranslate"><span class="pre">QueueProducerProxy</span></code>,<code class="docutils literal notranslate"><span class="pre">StreamConsumerProxy</span></code>,<code class="docutils literal notranslate"><span class="pre">StreamProducerProxy</span></code></p></li>
+<li><p>针对生产者消费者模式提供了专用代理对象<code class="docutils literal notranslate"><span class="pre">ChannelConsumerHelper</span></code>,<code class="docutils literal notranslate"><span class="pre">ChannelProducerHelper</span></code>,<code class="docutils literal notranslate"><span class="pre">QueueConsumerHelper</span></code>,<code class="docutils literal notranslate"><span class="pre">QueueProducerHelper</span></code>,<code class="docutils literal notranslate"><span class="pre">StreamConsumerPHelper</span></code>,<code class="docutils literal notranslate"><span class="pre">StreamProducerHelper</span></code></p></li>
 <li><p>生产者消费者提供了进一步的封装,可以通过上下文管理连接</p></li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2>使用<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id3">
-<h3>RedisProxy的使用<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="section" id="redisproxy">
+<h3>RedisProxy的使用<a class="headerlink" href="#redisproxy" title="永久链接至标题">¶</a></h3>
 <p>我们可以使用<code class="docutils literal notranslate"><span class="pre">RedisProxy</span></code>延后初始化要代理的对象,从而避免客户端对象在各个函数之间传来传去.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="n">rediscli</span> <span class="o">=</span> <span class="n">RedisProxy</span><span class="p">()</span>
@@ -219,8 +219,8 @@
 </div>
 <p>这样我们在写程序是也可以有接口提示.只有用到<code class="docutils literal notranslate"><span class="pre">pubsub</span></code>,<code class="docutils literal notranslate"><span class="pre">execute_command</span></code>或者<code class="docutils literal notranslate"><span class="pre">pipeline</span></code>的少数场景时需要指定具体类型.</p>
 </div>
-<div class="section" id="id4">
-<h3>生产者消费者模式<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id3">
+<h3>生产者消费者模式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>生产者消费者模式提供了基本统一的接口设计</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ConsumerProtocol</span></code> 通用的同步消费者接口</p></li>
@@ -234,7 +234,7 @@
 <blockquote>
 <div><p>同步生产者</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qp</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">StreamProducerProtocol</span><span class="p">,</span> <span class="n">StreamProducerProxy</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qp</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">StreamProducerProtocol</span><span class="p">,</span> <span class="n">StreamProducerHelper</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
 <span class="k">with</span> <span class="n">qp</span><span class="o">.</span><span class="n">mount</span><span class="p">()</span> <span class="k">as</span> <span class="n">producer</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">producer</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
@@ -243,7 +243,7 @@
 <blockquote>
 <div><p>异步生产者</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qp</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">AioStreamProducerProtocol</span><span class="p">,</span> <span class="n">StreamProducerProxy</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qp</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">AioStreamProducerProtocol</span><span class="p">,</span> <span class="n">StreamProducerHelper</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span>
 <span class="k">async</span> <span class="k">with</span> <span class="n">qp</span><span class="o">.</span><span class="n">mount</span><span class="p">()</span> <span class="k">as</span> <span class="n">producer</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="k">await</span> <span class="n">producer</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span><span class="n">value</span><span class="p">)</span>
@@ -252,7 +252,7 @@
 <blockquote>
 <div><p>同步消费者</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">ConsumerProtocol</span><span class="p">,</span> <span class="n">QueueConsumerProxy</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">topics</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">ConsumerProtocol</span><span class="p">,</span> <span class="n">QueueConsumerHelper</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">topics</span><span class="p">))</span>
 
 <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">watch</span><span class="p">()</span> <span class="k">as</span> <span class="n">records</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
@@ -262,7 +262,7 @@
 <blockquote>
 <div><p>异步消费者</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">AioConsumerProtocol</span><span class="p">,</span> <span class="n">QueueConsumerProxy</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">topics</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">AioConsumerProtocol</span><span class="p">,</span> <span class="n">QueueConsumerHelper</span><span class="o">.</span><span class="n">from_proxy</span><span class="p">(</span><span class="n">rediscli</span><span class="p">,</span> <span class="n">topics</span><span class="p">))</span>
 
 <span class="k">async</span> <span class="k">with</span> <span class="n">qc</span><span class="o">.</span><span class="n">watch</span><span class="p">()</span> <span class="k">as</span> <span class="n">records</span><span class="p">:</span>
     <span class="k">async</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
@@ -271,9 +271,9 @@
 </div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>安装<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install redisproxy
+<div class="section" id="id4">
+<h2>安装<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install redishelper
 </pre></div>
 </div>
 </div>
@@ -286,7 +286,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="CHANGELOG.html" class="btn btn-neutral float-right" title="0.0.2" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to redisproxy’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to redishelper’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

@@ -58,7 +58,7 @@ class StreamProducerHelper(RedisProxy):
             nomkstream (bool, optional): 流不存在时是否自动创建. Defaults to False.
 
         Returns:
-            StreamProducerProxy: 满足protocols.StreamProducerProtocol或者protocols.AioStreamProducerProtocol协议的消费者代理对象
+            StreamProducerHelper: 满足protocols.StreamProducerProtocol或者protocols.AioStreamProducerProtocol协议的消费者代理对象
         """
         p = clz(maxlen=maxlen, approximate=approximate, nomkstream=nomkstream)
         if proxy.instance is not None:

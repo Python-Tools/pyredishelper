@@ -92,7 +92,7 @@ class QueueConsumerHelper(RedisProxy):
             l2r (bool, optional): 是否从左侧插入数据右侧读取数据. Defaults to False.
 
         Returns:
-            QueueConsumerProxy: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
+            QueueConsumerHelper: 满足protocols.ConsumerProtocol或者protocols.AioConsumerProtocol协议的消费者代理对象
         """
         p = clz(topics, strl2r=l2r)
         if proxy.instance is not None:
