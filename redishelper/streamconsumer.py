@@ -10,7 +10,7 @@ from .models import ConsumerRecord, AutoOffsetReset, Acks
 from redis.commands.core import AsyncDataAccessCommands, DataAccessCommands
 
 
-class StreamConsumerProxy(RedisProxy):
+class StreamConsumerHelper(RedisProxy):
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster", "watch", "_topics",
                  "_auto_offset_reset", "_count", "_blocktime",
                  "_client_id", "_group_id", "_ack")
@@ -203,7 +203,7 @@ class StreamConsumerProxy(RedisProxy):
     @classmethod
     def from_proxy(clz, proxy: RedisProxy, topics: str, *,
                    auto_offset_reset: AutoOffsetReset = AutoOffsetReset.latest, count: Optional[int] = 20, blocktime: Optional[int] = 1000,
-                   client_id: Optional[str] = None, group_id: Optional[str] = None, ack: Acks = Acks.after) -> "StreamConsumerProxy":
+                   client_id: Optional[str] = None, group_id: Optional[str] = None, ack: Acks = Acks.after) -> "StreamConsumerHelper":
         """从RedisProxy实例创建代理.
 
         Args:
@@ -228,7 +228,7 @@ class StreamConsumerProxy(RedisProxy):
 
 
 @asynccontextmanager
-async def _watch_async(self: StreamConsumerProxy) -> AsyncGenerator[AsyncIterable[ConsumerRecord], None]:
+async def _watch_async(self: StreamConsumerHelper) -> AsyncGenerator[AsyncIterable[ConsumerRecord], None]:
     if self.instance is None:
         raise NotImplemented
     try:
@@ -238,7 +238,7 @@ async def _watch_async(self: StreamConsumerProxy) -> AsyncGenerator[AsyncIterabl
 
 
 @contextmanager
-def _watch_sync(self: StreamConsumerProxy) -> Generator[Iterable[ConsumerRecord], None, None]:
+def _watch_sync(self: StreamConsumerHelper) -> Generator[Iterable[ConsumerRecord], None, None]:
     if self.instance is None:
         raise NotImplemented
     try:

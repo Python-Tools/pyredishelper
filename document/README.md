@@ -1,4 +1,4 @@
-# redisproxy
+# redishelper
 
 提供redis客户端的代理对象功能.本项目代理的对象是[redis-py](https://github.com/redis/redis-py)中的四种客户端
 

@@ -5,7 +5,7 @@ from types import MethodType
 from .models import ConsumerRecord
 
 
-class QueueConsumerProxy(RedisProxy):
+class QueueConsumerHelper(RedisProxy):
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster", "watch", "_l2r", "_topics")
 
     def __init__(self, topics: str, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None,
@@ -83,7 +83,7 @@ class QueueConsumerProxy(RedisProxy):
 
     @classmethod
     def from_proxy(clz, proxy: RedisProxy, topics: str, *,
-                   l2r: bool = False) -> "QueueConsumerProxy":
+                   l2r: bool = False) -> "QueueConsumerHelper":
         """从RedisProxy实例创建代理.
 
         Args:
@@ -103,7 +103,7 @@ class QueueConsumerProxy(RedisProxy):
 
 
 @asynccontextmanager
-async def _watch_async(self: QueueConsumerProxy) -> AsyncGenerator[AsyncIterable[ConsumerRecord], None]:
+async def _watch_async(self: QueueConsumerHelper) -> AsyncGenerator[AsyncIterable[ConsumerRecord], None]:
     if self.instance is None:
         raise NotImplemented
     try:
@@ -113,7 +113,7 @@ async def _watch_async(self: QueueConsumerProxy) -> AsyncGenerator[AsyncIterable
 
 
 @contextmanager
-def _watch_sync(self: QueueConsumerProxy) -> Generator[Iterable[ConsumerRecord], None, None]:
+def _watch_sync(self: QueueConsumerHelper) -> Generator[Iterable[ConsumerRecord], None, None]:
     if self.instance is None:
         raise NotImplemented
     try:

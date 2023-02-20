@@ -1,5 +1,5 @@
 from redis.commands.core import DataAccessCommands
-from redisproxy.proxy import RedisProxy
+from redishelper.proxy import RedisProxy
 from typing import cast
 
 rediscli = RedisProxy()

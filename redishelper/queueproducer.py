@@ -4,7 +4,7 @@ from typing import Any, Optional, Union, Generator, AsyncGenerator
 from types import MethodType
 
 
-class QueueProducerProxy(RedisProxy):
+class QueueProducerHelper(RedisProxy):
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster", "publish", "mount", "_l2r")
 
     def __init__(self, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None,
@@ -46,7 +46,7 @@ class QueueProducerProxy(RedisProxy):
 
     @classmethod
     def from_proxy(clz, proxy: RedisProxy, *,
-                   l2r: bool = False) -> "QueueProducerProxy":
+                   l2r: bool = False) -> "QueueProducerHelper":
         """从RedisProxy实例创建代理.
 
         Args:
@@ -64,14 +64,14 @@ class QueueProducerProxy(RedisProxy):
         return p
 
 
-async def _publish_async(self: QueueProducerProxy, topic: str, value: Union[str, bytes]) -> None:
+async def _publish_async(self: QueueProducerHelper, topic: str, value: Union[str, bytes]) -> None:
     if self._l2r:
         await self.instance.lpush(topic, value)
     else:
         await self.instance.rpush(topic, value)
 
 
-def _publish_sync(self: QueueProducerProxy, topic: str, value: Union[str, bytes]) -> None:
+def _publish_sync(self: QueueProducerHelper, topic: str, value: Union[str, bytes]) -> None:
     if self._l2r:
         self.instance.lpush(topic, value)
     else:
@@ -79,7 +79,7 @@ def _publish_sync(self: QueueProducerProxy, topic: str, value: Union[str, bytes]
 
 
 @contextmanager
-def _mount_sync(self: QueueProducerProxy) -> Generator[QueueProducerProxy, None, None]:
+def _mount_sync(self: QueueProducerHelper) -> Generator[QueueProducerHelper, None, None]:
     if self.instance is None:
         raise NotImplemented
     try:
@@ -89,7 +89,7 @@ def _mount_sync(self: QueueProducerProxy) -> Generator[QueueProducerProxy, None,
 
 
 @asynccontextmanager
-async def _mount_async(self: QueueProducerProxy) -> AsyncGenerator[QueueProducerProxy, None]:
+async def _mount_async(self: QueueProducerHelper) -> AsyncGenerator[QueueProducerHelper, None]:
     if self.instance is None:
         raise NotImplemented
     try:

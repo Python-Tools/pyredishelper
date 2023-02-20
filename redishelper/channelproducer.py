@@ -7,7 +7,7 @@ from redis.asyncio import Redis as AioRedis
 from types import MethodType
 
 
-class ChannelProducerProxy(RedisProxy):
+class ChannelProducerHelper(RedisProxy):
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster", "mount")
 
     def __init__(self, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None, **conn_params: Any) -> None:
@@ -38,7 +38,7 @@ class ChannelProducerProxy(RedisProxy):
             self.mount = MethodType(_mount_sync, self)
 
     @classmethod
-    def from_proxy(clz, proxy: RedisProxy) -> "ChannelProducerProxy":
+    def from_proxy(clz, proxy: RedisProxy) -> "ChannelProducerHelper":
         """从RedisProxy实例创建代理.
 
         Args:
@@ -56,7 +56,7 @@ class ChannelProducerProxy(RedisProxy):
 
 
 @contextmanager
-def _mount_sync(self: ChannelProducerProxy) -> Generator[ChannelProducerProxy, None, None]:
+def _mount_sync(self: ChannelProducerHelper) -> Generator[ChannelProducerHelper, None, None]:
     if self.instance is None:
         raise NotImplemented
     try:
@@ -66,7 +66,7 @@ def _mount_sync(self: ChannelProducerProxy) -> Generator[ChannelProducerProxy, N
 
 
 @asynccontextmanager
-async def _mount_async(self: ChannelProducerProxy) -> AsyncGenerator[ChannelProducerProxy, None]:
+async def _mount_async(self: ChannelProducerHelper) -> AsyncGenerator[ChannelProducerHelper, None]:
     if self.instance is None:
         raise NotImplemented
     try:

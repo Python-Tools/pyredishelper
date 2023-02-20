@@ -8,7 +8,7 @@ from redis.commands.core import DataAccessCommands, AsyncDataAccessCommands
 from types import MethodType
 
 
-class StreamProducerProxy(RedisProxy):
+class StreamProducerHelper(RedisProxy):
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster", "mount", "publish", "_maxlen", "_approximate", "_nomkstream")
 
     def __init__(self, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None,
@@ -48,7 +48,7 @@ class StreamProducerProxy(RedisProxy):
             self.mount = MethodType(_mount_sync, self)
 
     @classmethod
-    def from_proxy(clz, proxy: RedisProxy, maxlen: Optional[int] = None, approximate: bool = True, nomkstream: bool = False) -> "StreamProducerProxy":
+    def from_proxy(clz, proxy: RedisProxy, maxlen: Optional[int] = None, approximate: bool = True, nomkstream: bool = False) -> "StreamProducerHelper":
         """从RedisProxy实例创建代理.
 
         Args:
@@ -68,18 +68,18 @@ class StreamProducerProxy(RedisProxy):
         return p
 
 
-async def _publish_async(self: StreamProducerProxy, topic: str, value: Dict[str, str]) -> None:
+async def _publish_async(self: StreamProducerHelper, topic: str, value: Dict[str, str]) -> None:
     p = cast(AsyncDataAccessCommands, self.instance)
     await p.xadd(topic, value, maxlen=self._maxlen, approximate=self._approximate, nomkstream=self._nomkstream)
 
 
-def _publish_sync(self: StreamProducerProxy, topic: str, value: Dict[str, str]) -> None:
+def _publish_sync(self: StreamProducerHelper, topic: str, value: Dict[str, str]) -> None:
     p = cast(DataAccessCommands, self.instance)
     p.xadd(topic, value, maxlen=self._maxlen, approximate=self._approximate, nomkstream=self._nomkstream)
 
 
 @contextmanager
-def _mount_sync(self: StreamProducerProxy) -> Generator[StreamProducerProxy, None, None]:
+def _mount_sync(self: StreamProducerHelper) -> Generator[StreamProducerHelper, None, None]:
     if self.instance is None:
         raise NotImplemented
     try:
@@ -89,7 +89,7 @@ def _mount_sync(self: StreamProducerProxy) -> Generator[StreamProducerProxy, Non
 
 
 @asynccontextmanager
-async def _mount_async(self: StreamProducerProxy) -> AsyncGenerator[StreamProducerProxy, None]:
+async def _mount_async(self: StreamProducerHelper) -> AsyncGenerator[StreamProducerHelper, None]:
     if self.instance is None:
         raise NotImplemented
     try:

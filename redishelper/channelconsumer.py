@@ -10,7 +10,7 @@ from redis.asyncio.client import PubSub as AioPubSub
 from .models import ConsumerRecord
 
 
-class ChannelConsumerProxy(RedisProxy):
+class ChannelConsumerHelper(RedisProxy):
     __slots__ = ('instance', "_callbacks", "_instance_check", "_aio", "_cluster", "watch", "_topics")
 
     def __init__(self, topics: str, *, url: Optional[str] = None, addresses: Optional[str] = None, aio: Optional[bool] = None,
@@ -70,7 +70,7 @@ class ChannelConsumerProxy(RedisProxy):
             yield record
 
     @classmethod
-    def from_proxy(clz, proxy: RedisProxy, topics: str) -> "ChannelConsumerProxy":
+    def from_proxy(clz, proxy: RedisProxy, topics: str) -> "ChannelConsumerHelper":
         """从RedisProxy实例创建代理.
 
         Args:
@@ -89,7 +89,7 @@ class ChannelConsumerProxy(RedisProxy):
 
 
 @asynccontextmanager
-async def _watch_async(self: ChannelConsumerProxy) -> AsyncGenerator[AsyncIterable[ConsumerRecord], None]:
+async def _watch_async(self: ChannelConsumerHelper) -> AsyncGenerator[AsyncIterable[ConsumerRecord], None]:
     if self.instance is None:
         raise NotImplemented
     try:
@@ -104,7 +104,7 @@ async def _watch_async(self: ChannelConsumerProxy) -> AsyncGenerator[AsyncIterab
 
 
 @contextmanager
-def _watch_sync(self: ChannelConsumerProxy) -> Generator[Iterable[ConsumerRecord], None, None]:
+def _watch_sync(self: ChannelConsumerHelper) -> Generator[Iterable[ConsumerRecord], None, None]:
     if self.instance is None:
         raise NotImplemented
     try:

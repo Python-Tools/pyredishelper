@@ -2,4 +2,4 @@ include LICENSE
 include README.md
 include CHANGELOG.md
 include requirements.txt
-recursive-include redisproxy *.pyx *.pxd *.pxi *.py *.c *.h *.temp *.jinja
+recursive-include redishelper *.pyx *.pxd *.pxi *.py *.c *.h *.temp *.jinja

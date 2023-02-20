@@ -1,9 +1,9 @@
-from redisproxy.proxy import RedisProxy
-from redisproxy.models import AutoOffsetReset
-from redisproxy.queueconsumer import QueueConsumerProxy
-from redisproxy.channelconsumer import ChannelConsumerProxy
-from redisproxy.streamconsumer import StreamConsumerProxy
-from redisproxy.protocols import AioConsumerProtocol
+from redishelper.proxy import RedisProxy
+from redishelper.models import AutoOffsetReset
+from redishelper.queueconsumer import QueueConsumerHelper
+from redishelper.channelconsumer import ChannelConsumerHelper
+from redishelper.streamconsumer import StreamConsumerHelper
+from redishelper.protocols import AioConsumerProtocol
 from typing import cast, Union, Dict
 import asyncio
 
@@ -14,10 +14,10 @@ async def runcode() -> None:
     keys = "topic1,topic2,topic3"
     await rediscli.delete(keys)
     print("delete old key ok")
-    # qc = cast(AioConsumerProtocol, QueueConsumerProxy.from_proxy(rediscli, keys))
-    # qc = cast(AioConsumerProtocol, ChannelConsumerProxy.from_proxy(rediscli, keys))
-    # qc = cast(AioConsumerProtocol, StreamConsumerProxy.from_proxy(rediscli, keys))
-    # qc = cast(AioConsumerProtocol, StreamConsumerProxy.from_proxy(rediscli, keys, auto_offset_reset=AutoOffsetReset.earliest))
+    # qc = cast(AioConsumerProtocol, QueueConsumerHelper.from_proxy(rediscli, keys))
+    # qc = cast(AioConsumerProtocol, ChannelConsumerHelper.from_proxy(rediscli, keys))
+    # qc = cast(AioConsumerProtocol, StreamConsumerHelper.from_proxy(rediscli, keys))
+    # qc = cast(AioConsumerProtocol, StreamConsumerHelper.from_proxy(rediscli, keys, auto_offset_reset=AutoOffsetReset.earliest))
 
     client_id = "testnode1"
     group_id = "testgroup1"
@@ -27,8 +27,8 @@ async def runcode() -> None:
         # rediscli.xgroup_create(topic, group_id, mkstream=True)
         await rediscli.xgroup_create(topic, group_id, id='0-0', mkstream=True)
         print(f"create group {group_id} for topic {topic} ok")
-    qc = cast(AioConsumerProtocol, StreamConsumerProxy.from_proxy(rediscli, keys, client_id=client_id, group_id=group_id))
-    # qc = cast(AioConsumerProtocol, StreamConsumerProxy.from_proxy(rediscli, keys, client_id=client_id, group_id=group_id, auto_offset_reset=AutoOffsetReset.earliest))
+    qc = cast(AioConsumerProtocol, StreamConsumerHelper.from_proxy(rediscli, keys, client_id=client_id, group_id=group_id))
+    # qc = cast(AioConsumerProtocol, StreamConsumerHelper.from_proxy(rediscli, keys, client_id=client_id, group_id=group_id, auto_offset_reset=AutoOffsetReset.earliest))
 
     value: Union[str, Dict[str, str]]
     async with qc.watch() as records:

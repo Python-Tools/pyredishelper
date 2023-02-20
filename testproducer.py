@@ -1,8 +1,8 @@
-from redisproxy.proxy import RedisProxy
-from redisproxy.protocols import ProducerProtocol, StreamProducerProtocol
-from redisproxy.queueproducer import QueueProducerProxy
-from redisproxy.channelproducer import ChannelProducerProxy
-from redisproxy.streamproducer import StreamProducerProxy
+from redishelper.proxy import RedisProxy
+from redishelper.protocols import ProducerProtocol, StreamProducerProtocol
+from redishelper.queueproducer import QueueProducerHelper
+from redishelper.channelproducer import ChannelProducerHelper
+from redishelper.streamproducer import StreamProducerHelper
 from typing import cast
 import time
 
@@ -10,9 +10,9 @@ rediscli = RedisProxy()
 
 
 def runcode() -> None:
-    # qp = cast(ProducerProtocol, QueueProducerProxy.from_proxy(rediscli))
-    # qp = cast(ProducerProtocol, ChannelProducerProxy.from_proxy(rediscli))
-    qp = cast(StreamProducerProtocol, StreamProducerProxy.from_proxy(rediscli, maxlen=20))
+    # qp = cast(ProducerProtocol, QueueProducerHelper.from_proxy(rediscli))
+    # qp = cast(ProducerProtocol, ChannelProducerHelper.from_proxy(rediscli))
+    qp = cast(StreamProducerProtocol, StreamProducerHelper.from_proxy(rediscli, maxlen=20))
     with qp.mount() as producer:
         for i in range(10):
             topicnum = i % 3 + 1

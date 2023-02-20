@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'redisproxy'
+project = 'redishelper'
 copyright = '2023, mac'
 author = 'mac'
 
@@ -114,4 +114,4 @@ def setup(app):
 extensions.append('autoapi.extension')
 extensions.append("sphinx.ext.napoleon")
 autoapi_type = 'python'
-autoapi_dirs = ["/Users/mac/WORKSPACE/GITHUB/PythonTools/redisproxy/redisproxy"]
+autoapi_dirs = ["/Users/mac/WORKSPACE/GITHUB/PythonTools/redisproxy/redishelper"]
